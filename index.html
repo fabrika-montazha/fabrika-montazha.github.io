@@ -913,17 +913,7 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .fac { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: clamp(28px, 5vw, 64px); margin-top: 30px; align-items: center; }
 .fac .loaded { grid-template-columns: repeat(2, 1fr); margin-top: 24px; }
 .sub-h { margin-top: clamp(48px, 7vw, 72px); font-size: clamp(26px, 3.6vw, 38px); }
-.rules { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 24px; }
-.rule { padding: 18px 18px 20px; border-radius: 18px; border: 1px solid var(--line); background: linear-gradient(165deg, rgba(255,255,255,.05), rgba(255,255,255,.015)); display: grid; gap: 12px; align-content: start; }
-.rule s, .rule b { position: relative; padding-left: 30px; line-height: 1.4; }
-.rule s { color: #8F8D85; font-size: 14px; text-decoration: line-through 2px transparent; transition: text-decoration-color .6s ease .3s; }
-.rule.struck s, html:not(.fx) .rule s { text-decoration-color: rgba(255,90,77,.85); }
-.rule b { font-weight: 600; font-size: 15.5px; color: var(--paper); }
-.rule s::before, .rule b::before { content: ""; position: absolute; left: 0; top: 0; width: 20px; height: 20px; border-radius: 6px; }
-.rule s::before { content: "✕"; display: grid; place-items: center; font: 700 11px/1 var(--body); color: #fff; background: var(--pain); box-shadow: 0 0 12px rgba(255,90,77,.4); }
-.rule b::before { background: linear-gradient(145deg, #FFF59A, #FFE94A 50%, #E1C300); box-shadow: 0 0 12px rgba(255,233,74,.35); }
-.rule b::after { content: ""; position: absolute; left: 7px; top: 3px; width: 5px; height: 10px; border: solid #141200; border-width: 0 2.4px 2.4px 0; transform: rotate(45deg); }
-.pack-line { margin-top: 26px; padding: clamp(22px, 3vw, 30px); display: grid; grid-template-columns: minmax(0, 1.2fr) auto; gap: 20px 36px; align-items: center; }
+.pack-line { margin-top: clamp(32px, 4vw, 44px); padding: clamp(22px, 3vw, 30px); display: grid; grid-template-columns: minmax(0, 1.2fr) auto; gap: 20px 36px; align-items: center; }
 .pack-line p { color: #E3E1D9; font-size: clamp(16px, 1.8vw, 18px); line-height: 1.6; }
 .pack-line p b { color: var(--y); }
 .pack-line .story-stats { margin-top: 0; padding-top: 0; border-top: 0; flex-wrap: nowrap; }
@@ -998,7 +988,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 @keyframes trV2 { 0%, 62% { opacity: 0; transform: translateY(16px) scale(.9); } 68%, 95% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @keyframes trV3 { 0%, 65% { opacity: 0; transform: translateY(16px) scale(.9); } 71%, 95% { opacity: 1; transform: none; } 100% { opacity: 0; } }
 @media (max-width: 1023px) {
-  .rules { grid-template-columns: repeat(2, 1fr); }
   .fac, .gift, .trial, .about { grid-template-columns: 1fr; }
   .fac .clip { order: -1; }
   .pack-line { grid-template-columns: 1fr; }
@@ -1012,7 +1001,6 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
   .how .steps .num { left: 18px; }
 }
 @media (max-width: 560px) {
-  .rules { grid-template-columns: 1fr; }
   .quote { padding: 22px; }
   .tr-vars { gap: 6px; }
   .tr-vars span { padding: 8px; }
@@ -1897,15 +1885,6 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
         <figcaption>Claude монтирует: дубли, субтитры, звук, графика</figcaption>
       </figure>
     </div>
-    <h3 class="sub-h">Каждую ошибку я превращал <span class="y">в правило</span></h3>
-    <div class="rules">
-      <div class="rule"><s>Графика налезала на лицо</s><b>Держит отступ от лица и уходит за спину</b></div>
-      <div class="rule"><s>Надпись выскакивала раньше слова</s><b>Появляется ровно на вашем слове</b></div>
-      <div class="rule"><s>В субтитрах путались буквы в именах и брендах</s><b>Сверяет слова по смыслу, бренды пишет правильно</b></div>
-      <div class="rule"><s>Звук отставал от движения</s><b>Вжух и щелчок точно в такт, громкость сведена</b></div>
-      <div class="rule"><s>Плашки прыгали, когда появлялась соседняя</s><b>Место занято заранее, движения плавные</b></div>
-      <div class="rule"><s>Стекло в стиле «Макос» выглядело дёшево</s><b>Переделано 6 раз, пока не стало как у Apple</b></div>
-    </div>
     <div class="slab pack-line">
       <p><b>Это та же система, на которой я монтирую свои ролики.</b> Я упаковал её в один пак с подробным гайдом и делюсь им с вами. Проходить мой путь не нужно: фабрика приходит к вам уже обученной.</p>
     </div>
@@ -2390,7 +2369,18 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
 
 <script>
 // Настройки продажи: ссылка на оплату Lava и конец окна запуска (цена станет $79). Пусто: кнопка ведёт к блоку цены, таймер скрыт.
-const CONFIG = { posthogKey: "phc_tkVTtmo9rUdbqzWxn2PZxyGGMfsBuom6MBNcxmEmm3fj", buyUrl: "https://app.lava.top/products/3535ea04-21e5-4af9-a9dd-973acc4d76b7", launchEnd: "", giftUrl: "https://drive.usercontent.google.com/download?id=1Yn22XYaB31ALIhAdf2TOdN9lPLHoIBTM&export=download&confirm=t" };   // launchEnd пример: "2026-10-20T21:00:00+03:00"; giftUrl: ссылка на архив Транскрибатора
+const CONFIG = { posthogKey: "phc_tkVTtmo9rUdbqzWxn2PZxyGGMfsBuom6MBNcxmEmm3fj", buyUrl: "https://app.lava.top/products/3535ea04-21e5-4af9-a9dd-973acc4d76b7", launchEnd: "2026-10-16T23:59:59+03:00", giftUrl: "https://drive.usercontent.google.com/download?id=1Yn22XYaB31ALIhAdf2TOdN9lPLHoIBTM&export=download&confirm=t" };   // launchEnd пример: "2026-10-20T21:00:00+03:00"; giftUrl: ссылка на архив Транскрибатора
+
+// A/B-тест «таймер у цены»: половина посетителей видит обратный отсчёт до конца окна запуска, половина нет.
+// Группа закрепляется за браузером; посмотреть нужную вручную: ?ab=timer или ?ab=notimer
+const AB_TIMER = (() => {
+  const forced = new URLSearchParams(location.search).get("ab");
+  if (forced === "timer" || forced === "notimer") return forced === "timer" ? "с таймером" : "без таймера";
+  try { const v = localStorage.getItem("fm_ab_timer"); if (v === "с таймером" || v === "без таймера") return v; } catch (_) {}
+  const v = Math.random() < 0.5 ? "с таймером" : "без таймера";
+  try { localStorage.setItem("fm_ab_timer", v); } catch (_) {}
+  return v;
+})();
 
 // дорожка монтажа: прогресс страницы как тайм-код минутного ролика
 const fill = document.getElementById("scrubFill"), tc = document.getElementById("scrubTc");
@@ -2756,18 +2746,21 @@ else giftBtn.addEventListener("click", (e) => { e.preventDefault(); document.get
 const giftDlg = document.getElementById("giftDlg");
 document.getElementById("giftHow").addEventListener("click", () => { if (giftDlg.showModal) giftDlg.showModal(); else giftDlg.setAttribute("open", ""); });
 giftDlg.addEventListener("click", (e) => { if (e.target === giftDlg) giftDlg.close(); });
+// окно запуска: таймер видит только группа «с таймером»; когда окно закончилось, строка про $79 и таймер скрыты у всех
 if (CONFIG.launchEnd) {
-  const end = new Date(CONFIG.launchEnd).getTime(), box = document.getElementById("timer");
+  const end = new Date(CONFIG.launchEnd).getTime(), box = document.getElementById("timer"), later = document.querySelector(".later");
+  const showTimer = AB_TIMER === "с таймером";
   const tick = () => {
     const d = end - Date.now();
-    if (d <= 0) { box.hidden = true; return; }
+    if (d <= 0) { box.hidden = true; if (later) later.hidden = true; clearInterval(iv); return; }
+    if (!showTimer) return;
     box.hidden = false;
     document.getElementById("tD").textContent = Math.floor(d / 864e5);
     document.getElementById("tH").textContent = String(Math.floor(d / 36e5) % 24).padStart(2, "0");
     document.getElementById("tM").textContent = String(Math.floor(d / 6e4) % 60).padStart(2, "0");
     document.getElementById("tS").textContent = String(Math.floor(d / 1e3) % 60).padStart(2, "0");
   };
-  tick(); setInterval(tick, 1000);
+  const iv = setInterval(tick, 1000); tick();
 }
 
 // нижняя кнопка на телефоне: только после того, как человек увидел цену (дошёл до неё или собрал пазл); прячется, когда на экране есть другая «Забрать пак»
@@ -2924,7 +2917,6 @@ if (FX) try {
   mark(".rc", "fan", { r: 6 });
   mark(".clip", "fan", { r: 5 });
   mark(".story-text > p, .next", "up");
-  mark(".rule", "flip");
   mark(".pack-line", "up");
   mark(".story-stats > div", "pop");
   mark(".phn", "fan", { r: 8 });
@@ -2977,9 +2969,6 @@ if (FX) try {
   // история: слова загораются по мере прокрутки
   const box = document.querySelector(".story-text");
   if (box && !inView(box)) { storyPs = [...box.querySelectorAll(":scope > p")]; storyPs.forEach((p) => splitWords(p, "sw")); storyWords = [...box.querySelectorAll(".sw")]; box.classList.add("hl"); }
-  // правила: старая ошибка зачёркивается красной линией, когда карточка на экране (класс остаётся навсегда)
-  const ioStrike = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { ioStrike.unobserve(e.target); setTimeout(() => e.target.classList.add("struck"), 500); } }), { threshold: .6 });
-  document.querySelectorAll(".rule").forEach((r) => ioStrike.observe(r));
   parEls = [...document.querySelectorAll("[data-speed]")];
   grail = document.querySelector(".grail");
   // бегущая плёнка: едет всегда, от прокрутки разгоняется и меняет направление
@@ -3012,7 +3001,7 @@ addEventListener("scroll", onScroll, { passive: true }); addEventListener("resiz
 <script>
 /* Аналитика (PostHog, сервер в ЕС): посещения, воронка по блокам, клики, где уходят, тепловые карты и записи визитов.
    Пока CONFIG.posthogKey пустой, ничего не грузится и не отправляется. Подключается после загрузки страницы, чтобы не тормозить первый экран.
-   События для дашборда: section_view (дошёл до блока), scroll_depth, cta_click, hero_variant, faq_open, gift_click, calc_change, exit (где ушёл). */
+   События для дашборда: section_view (дошёл до блока), scroll_depth, cta_click, ab_view (группа A/B-теста таймера), hero_variant, faq_open, gift_click, calc_change, exit (где ушёл). */
 (function analytics() {
   if (typeof CONFIG === "undefined" || !CONFIG.posthogKey) return;
   const start = () => {
@@ -3021,6 +3010,8 @@ addEventListener("scroll", onScroll, { passive: true }); addEventListener("resiz
       posthog.init(CONFIG.posthogKey, { api_host: "https://eu.i.posthog.com", defaults: "2026-05-30", person_profiles: "identified_only", enable_heatmaps: true, capture_pageleave: true, disable_surveys: true, session_recording: { maskAllInputs: true } });
     } catch (e) { return; }
     const T0 = performance.now(), track = (ev, props, opts) => { try { posthog.capture(ev, props || {}, opts); } catch (_) {} };
+    // A/B-тест таймера: группа уходит со всеми событиями визита, плюс одно событие ab_view для подсчёта людей в группах
+    if (typeof AB_TIMER !== "undefined") { try { posthog.register({ ab_timer: AB_TIMER }); } catch (_) {} track("ab_view", { ab_timer: AB_TIMER }); }
     // воронка: каждый блок отмечается один раз за визит, когда его верх доходит до середины экрана
     const STEPS = [["top", "Первый экран"], ["about", "Кто я"], ["story", "История"], ["factory", "Фабрика"], ["features", "Возможности"], ["bento", "Что внутри"], ["styles", "Стили"], ["trial", "Пробные Reels"], ["own", "Свой стиль"], ["how", "Как работает"], ["reviews", "Отзывы"], ["fit", "Для кого"], ["calc", "Калькулятор"], ["price", "Цена"], ["guarantee", "Гарантия"], ["gift", "Подарок"], ["faq", "Вопросы"], ["final", "Финал"]];
     const steps = STEPS.map(([id, name], i) => ({ id, name, step: i + 1, el: id === "final" ? document.querySelector(".final") : document.getElementById(id) })).filter((x) => x.el && !x.el.hidden);
