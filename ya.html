@@ -10,7 +10,9 @@
 <style>
   /* Прямое скачивание с Яндекс Диска (09.10.2026): Яндекс не даёт постоянных прямых ссылок, только временные.
      Страница берёт свежую ссылку через открытое API Яндекс Диска и сразу запускает загрузку файла.
-     Не получилось: открывает обычную страницу Яндекс Диска с кнопкой «Скачать». */
+     Не получилось: открывает обычную страницу Яндекс Диска с кнопкой «Скачать».
+     Адреса платных файлов здесь НЕ хранятся (страница публичная): их приносит параметр ?u=<ссылка Яндекс Диска>
+     из гайда покупателя. Без параметра страница знает только бесплатный Транскрибатор (?f=transcriber). */
   :root { color-scheme: dark; }
   body { margin: 0; min-height: 100vh; display: grid; place-items: center; background: #0B0B0C; color: #F2F2F2;
     font: 500 17px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; padding: 24px; box-sizing: border-box; text-align: center; }
@@ -31,25 +33,35 @@
   <a id="a" href="https://disk.yandex.ru" rel="noopener">Если не началось, нажмите здесь</a>
 </div>
 <script>
-  const FILES = {
-    pak: "https://yadi.sk/d/qMqYF8_UDYLUyQ",          // Фабрика монтажа.zip
-    transcriber: "https://yadi.sk/d/iaBvskzG9Tribw",  // Транскрибатор.zip
-    guide: "https://yadi.sk/i/dU13aEaMJOVt7g",        // гайд «Как начать» (PDF)
+  const FREE = { transcriber: "https://yadi.sk/d/iaBvskzG9Tribw" };   // бесплатный подарок, его адрес не секрет
+  const q = new URLSearchParams(location.search);
+  // только публичные ссылки Яндекс Диска: yadi.sk и disk.yandex.<зона>, по https
+  const yandex = (s) => {
+    try {
+      const u = new URL(s);
+      return u.protocol === "https:" && (u.hostname === "yadi.sk" || /^disk\.yandex\.[a-z.]+$/.test(u.hostname)) ? u.href : "";
+    } catch (e) { return ""; }
   };
-  const key = new URLSearchParams(location.search).get("f") || "pak";
-  const page = FILES[key] || FILES.pak;
-  const a = document.getElementById("a");
-  a.href = page;
-  const fallback = () => { document.getElementById("s").textContent = "Открываю страницу Яндекс Диска: там нажмите «Скачать»."; location.href = page; };
-  fetch("https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=" + encodeURIComponent(page))
-    .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
-    .then((d) => {
-      if (!d.href) return fallback();
-      a.href = d.href;
-      location.href = d.href;
-      setTimeout(() => { document.getElementById("box").classList.add("done"); document.getElementById("t").textContent = "Загрузка пошла"; }, 1500);
-    })
-    .catch(fallback);
+  const page = yandex(q.get("u") || "") || FREE[q.get("f")] || "";
+  const box = document.getElementById("box"), t = document.getElementById("t"), s = document.getElementById("s"), a = document.getElementById("a");
+  if (!page) {
+    box.classList.add("done");
+    t.textContent = "Ссылка не найдена";
+    s.textContent = "Откройте кнопку «Скачать» из гайда ещё раз.";
+    a.style.display = "none";
+  } else {
+    a.href = page;
+    const fallback = () => { s.textContent = "Открываю страницу Яндекс Диска: там нажмите «Скачать»."; location.href = page; };
+    fetch("https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=" + encodeURIComponent(page))
+      .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
+      .then((d) => {
+        if (!d.href) return fallback();
+        a.href = d.href;
+        location.href = d.href;
+        setTimeout(() => { box.classList.add("done"); t.textContent = "Загрузка пошла"; }, 1500);
+      })
+      .catch(fallback);
+  }
 </script>
 </body>
 </html>
