@@ -55,7 +55,7 @@
     fetch("https://cloud-api.yandex.net/v1/disk/public/resources/download?public_key=" + encodeURIComponent(page))
       .then((r) => (r.ok ? r.json() : Promise.reject(r.status)))
       .then((d) => {
-        if (!d.href) return fallback();
+        if (!d.href || !/^https:\/\//.test(d.href)) return fallback();   // только https-ссылка от Яндекса
         a.href = d.href;
         location.href = d.href;
         setTimeout(() => { box.classList.add("done"); t.textContent = "Загрузка пошла"; }, 1500);

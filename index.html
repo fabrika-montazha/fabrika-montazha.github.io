@@ -4,12 +4,18 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="description" content="Монтаж Reels уровня профи за 15 минут: субтитры, инфографика и звук по одной фразе. Пак для Claude и ChatGPT + бесплатный Транскрибатор.">
-<meta property="og:title" content="Фабрика монтажа"><meta property="og:description" content="Монтаж Reels уровня профи за 15 минут одной фразой: Claude или ChatGPT сам ставит субтитры, инфографику и звук."><meta property="og:image" content="media/reel/hero-after.jpg">
+<title>Фабрика монтажа</title>
+<link rel="canonical" href="https://fabrika-montazha.github.io/">
+<meta name="theme-color" content="#0A0A09">
+<meta property="og:type" content="website"><meta property="og:url" content="https://fabrika-montazha.github.io/"><meta property="og:site_name" content="Фабрика монтажа"><meta property="og:locale" content="ru_RU">
+<meta property="og:title" content="Фабрика монтажа"><meta property="og:description" content="Монтаж Reels уровня профи за 15 минут одной фразой: Claude или ChatGPT сам ставит субтитры, инфографику и звук.">
+<meta property="og:image" content="https://fabrika-montazha.github.io/media/og.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="Фабрика монтажа: ИИ-монтаж Reels">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="apple-touch-icon" href="media/icon-180.png">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23FFE94A'/%3E%3Cpath d='M24 18 L48 32 L24 46 Z' fill='%23111'/%3E%3C/svg%3E">
 </head>
 <body>
-<title>Фабрика монтажа</title>
-<link rel="preload" as="image" href="media/reel/hero-after.jpg" fetchpriority="high">
+<link rel="preload" as="image" href="media/reel/hero-after.webp" fetchpriority="high">
 <style>
 @font-face {
   font-family: 'JetBrains Mono';
@@ -420,7 +426,8 @@
 [hidden] { display: none !important; }
 html { scroll-behavior: smooth; }
 body { margin: 0; background: var(--ink-0); color: var(--paper); font: 400 16px/1.6 var(--body); -webkit-font-smoothing: antialiased; overflow-x: hidden; }
-body::before { content: ""; position: fixed; inset: 0; background: url("media/grain.png"); opacity: .055; pointer-events: none; z-index: 60; }
+body::before { content: ""; position: fixed; inset: 0; opacity: .055; pointer-events: none; z-index: 60; }
+html.ld body::before { background: url("media/grain.webp"); }   /* зерно: после загрузки страницы, оно декоративное */
 img, video { max-width: 100%; display: block; }
 /* видео только для показа: не перехватывают колесо мыши (в эмуляции телефона колесо над видео не листало страницу) */
 video { pointer-events: none; }
@@ -883,7 +890,8 @@ footer .wrap { display: flex; flex-wrap: wrap; justify-content: space-between; g
 .ig-bar i:nth-child(2) { background: #FEBC2E; }
 .ig-bar i:nth-child(3) { background: #28C840; }
 .ig-bar span { margin-left: 10px; flex: 1; min-width: 0; font: 500 11.5px/1 var(--mono); color: var(--mute); background: rgba(255,255,255,.05); padding: 6px 10px; border-radius: 7px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.ig img { width: 100%; height: auto; }
+.ig img { width: 100%; height: auto; aspect-ratio: 1668 / 590; }
+img[data-later] { visibility: hidden; }
 .reels { grid-auto-columns: min(44vw, 210px); margin-top: 30px; }
 .rc { margin: 0; display: grid; gap: 12px; }
 .rc img { width: 100%; height: auto; aspect-ratio: 480 / 745; object-fit: cover; border-radius: 16px; border: 1px solid var(--line); box-shadow: 0 20px 40px rgba(0,0,0,.5); }
@@ -1774,9 +1782,9 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
       <div class="phone">
         <div class="screen">
           <div class="notch"></div>
-          <video id="v-before" src="media/reel/hero-before.mp4" data-poster="media/reel/hero-before.jpg" muted loop playsinline preload="none"></video>
-          <video id="v-m1" class="on" src="media/reel/hero-after.mp4" poster="media/reel/hero-after.jpg" muted loop playsinline preload="none"></video>
-          <video id="v-m2" src="media/reel/hero-m2.mp4" data-poster="media/reel/hero-m2.jpg" muted loop playsinline preload="none"></video>
+          <video id="v-before" src="media/reel/hero-before.mp4" data-poster="media/reel/hero-before.webp" muted loop playsinline preload="none"></video>
+          <video id="v-m1" class="on" src="media/reel/hero-after.mp4" poster="media/reel/hero-after.webp" muted loop playsinline preload="none"></video>
+          <video id="v-m2" src="media/reel/hero-m2.mp4" data-poster="media/reel/hero-m2.webp" muted loop playsinline preload="none"></video>
           <div class="tag" id="vTag">МОНТАЖ 1</div>
           <button class="sound" id="sound" type="button" aria-label="Включить звук" aria-pressed="false">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4h3l5 4V6L7 10H4z"/><path id="snd-x" d="M16 9l5 6M21 9l-5 6"/><path id="snd-w" d="M16 9.5a3.5 3.5 0 0 1 0 5M18.5 7a7 7 0 0 1 0 10" hidden/></svg>
@@ -1829,15 +1837,15 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
       <a class="ig-wrap" href="https://www.instagram.com/anton.dubai.realestate/" target="_blank" rel="noopener" aria-label="Открыть профиль в Instagram">
         <figure class="ig">
           <div class="ig-bar"><i></i><i></i><i></i><span>instagram.com/anton.dubai.realestate</span></div>
-          <img src="media/proof/profile.jpg" alt="Профиль anton.dubai.realestate в Instagram: 108 тысяч подписчиков" width="1668" height="590" loading="lazy">
+          <img data-later="media/proof/profile.webp" alt="Профиль anton.dubai.realestate в Instagram: 108 тысяч подписчиков" width="1668" height="590" loading="lazy">
         </figure>
       </a>
     </div>
     <div class="rail reels">
-      <figure class="rc"><img src="media/proof/r1.jpg" alt="Ролик «Удали все игры со своего телефона»" width="480" height="743" loading="lazy"><figcaption><b>9,2 млн</b>просмотров</figcaption></figure>
-      <figure class="rc"><img src="media/proof/r2.jpg" alt="Ролик «Город рухнул, квартал устоял»" width="480" height="745" loading="lazy"><figcaption><b>4,6 млн</b>просмотров</figcaption></figure>
-      <figure class="rc"><img src="media/proof/r3.jpg" alt="Ролик «Бросил животное в Дубае»" width="480" height="749" loading="lazy"><figcaption><b>1,1 млн</b>просмотров</figcaption></figure>
-      <figure class="rc"><img src="media/proof/r4.jpg" alt="Ролик «Закрытые районы открыли»" width="480" height="741" loading="lazy"><figcaption><b>1 млн</b>просмотров</figcaption></figure>
+      <figure class="rc"><img data-later="media/proof/r1.webp" alt="Ролик «Удали все игры со своего телефона»" width="480" height="743" loading="lazy"><figcaption><b>9,2 млн</b>просмотров</figcaption></figure>
+      <figure class="rc"><img data-later="media/proof/r2.webp" alt="Ролик «Город рухнул, квартал устоял»" width="480" height="745" loading="lazy"><figcaption><b>4,6 млн</b>просмотров</figcaption></figure>
+      <figure class="rc"><img data-later="media/proof/r3.webp" alt="Ролик «Бросил животное в Дубае»" width="480" height="749" loading="lazy"><figcaption><b>1,1 млн</b>просмотров</figcaption></figure>
+      <figure class="rc"><img data-later="media/proof/r4.webp" alt="Ролик «Закрытые районы открыли»" width="480" height="741" loading="lazy"><figcaption><b>1 млн</b>просмотров</figcaption></figure>
     </div>
     <p class="proof-note">Скриншоты из моего Instagram · октябрь 2026 · <a href="https://www.instagram.com/anton.dubai.realestate/" target="_blank" rel="noopener">открыть профиль ↗</a></p>
   </div>
@@ -1881,7 +1889,7 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
         </div>
       </div>
       <figure class="clip tilt-r">
-        <div class="scr"><img src="media/reel/timeline2.jpg" alt="Кадр из ролика: Claude монтирует ролик на дорожках монтажной программы" width="540" height="960" loading="lazy"><video data-src="media/reel/timeline2.mp4" muted loop playsinline preload="none"></video></div>
+        <div class="scr"><img data-later="media/reel/timeline2.webp" alt="Кадр из ролика: Claude монтирует ролик на дорожках монтажной программы" width="540" height="960" loading="lazy"><video data-src="media/reel/timeline2.mp4" muted loop playsinline preload="none"></video></div>
         <figcaption>Claude монтирует: дубли, субтитры, звук, графика</figcaption>
       </figure>
     </div>
@@ -1899,10 +1907,10 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
     <h2>Переписки, как в <span class="y">настоящих мессенджерах</span></h2>
     <p class="lead" style="margin-top:14px">Telegram, WhatsApp, iMessage и ИИ-чат. Сообщения появляются ровно на ваших словах, собеседник «печатает…», стоят галочки прочтения. В After Effects такую сцену собирают часами, а помощник ставит её сам, когда в ролике речь о переписке.</p>
     <div class="rail chats-rail">
-      <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/tg.jpg" alt="Переписка Telegram с монтажёром" loading="lazy"><video data-src="media/f2/tg.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#2AABEE; background:#2AABEE"></i>Telegram</figcaption></figure>
+      <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/tg.webp" alt="Переписка Telegram с монтажёром" loading="lazy"><video data-src="media/f2/tg.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#2AABEE; background:#2AABEE"></i>Telegram</figcaption></figure>
       <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/wa.jpg" alt="Переписка WhatsApp с монтажёром" loading="lazy"><video data-src="media/f2/wa.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#25D366; background:#25D366"></i>WhatsApp</figcaption></figure>
-      <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/im.jpg" alt="Переписка iMessage" loading="lazy"><video data-src="media/f2/im.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#34C759; background:#34C759"></i>iMessage</figcaption></figure>
-      <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/ai.jpg" alt="ИИ-чат с Claude" loading="lazy"><video data-src="media/f2/ai.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#D97757; background:#D97757"></i>ИИ-чат</figcaption></figure>
+      <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/im.webp" alt="Переписка iMessage" loading="lazy"><video data-src="media/f2/im.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#34C759; background:#34C759"></i>iMessage</figcaption></figure>
+      <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/ai.webp" alt="ИИ-чат с Claude" loading="lazy"><video data-src="media/f2/ai.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#D97757; background:#D97757"></i>ИИ-чат</figcaption></figure>
       <figure class="phn"><div class="scr"><div class="in"><img src="media/f2/chat.jpg" alt="Переписка в стиле ролика" loading="lazy"><video data-src="media/f2/chat.mp4" muted loop playsinline preload="none"></video></div></div><figcaption><i style="color:#FFE94A; background:#FFE94A"></i>В стиле ролика</figcaption></figure>
     </div>
 
@@ -1915,11 +1923,11 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
     </div>
     <div class="frow"><h3>Карты и маршруты<small>Любая страна и город: перелёты, карты, дома в 3D. Здесь на примере Турции</small></h3>
       <div class="rail frail">
-        <figure class="fcard"><div class="scr"><img src="media/f2/route1.jpg" alt="Перелёт Анталья → Стамбул" loading="lazy"><video data-src="media/f2/route1.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Перелёт Анталья → Стамбул</b><span>Самолёт летит по дуге, время в пути</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f2/trmap.jpg" alt="Карта Турции" loading="lazy"><video data-src="media/f2/trmap.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Карта Турции</b><span>Наезд на регион и город, без интернета</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f2/antalya.jpg" alt="Анталья в 3D" loading="lazy"><video data-src="media/f2/antalya.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Анталья в 3D</b><span>Калеичи и пляж Коньяалты, дома встают объёмом</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f2/route2.jpg" alt="Тур по Турции" loading="lazy"><video data-src="media/f2/route2.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Тур по Турции</b><span>Измир, Каппадокия, Трабзон одним маршрутом</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f2/istanbul.jpg" alt="Стамбул в 3D" loading="lazy"><video data-src="media/f2/istanbul.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Стамбул в 3D</b><span>Галата и Айя-София, расстояние считается само</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/route1.webp" alt="Перелёт Анталья → Стамбул" loading="lazy"><video data-src="media/f2/route1.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Перелёт Анталья → Стамбул</b><span>Самолёт летит по дуге, время в пути</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/trmap.webp" alt="Карта Турции" loading="lazy"><video data-src="media/f2/trmap.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Карта Турции</b><span>Наезд на регион и город, без интернета</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/antalya.webp" alt="Анталья в 3D" loading="lazy"><video data-src="media/f2/antalya.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Анталья в 3D</b><span>Калеичи и пляж Коньяалты, дома встают объёмом</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/route2.webp" alt="Тур по Турции" loading="lazy"><video data-src="media/f2/route2.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Тур по Турции</b><span>Измир, Каппадокия, Трабзон одним маршрутом</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/istanbul.webp" alt="Стамбул в 3D" loading="lazy"><video data-src="media/f2/istanbul.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Стамбул в 3D</b><span>Галата и Айя-София, расстояние считается само</span></figcaption></figure>
       </div>
     </div>
     <div class="frow"><h3>Эмодзи, логотипы, стикеры<small>3 400+ брендов, 190+ стикеров, живые эмодзи</small></h3>
@@ -1941,22 +1949,22 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
     </div>
     <div class="frow"><h3>Кино-эффекты<small>как в дорогом монтаже</small></h3>
       <div class="rail frail">
-        <figure class="fcard"><div class="scr"><img src="media/f/blast.jpg" alt="Взрыв за спиной" loading="lazy"><video data-src="media/f/blast.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Взрыв за спиной</b><span>Пламя встаёт за вами, звук удара</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f/outline.jpg" alt="Обводка-стикер" loading="lazy"><video data-src="media/f/outline.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Обводка-стикер</b><span>Белый контур вокруг вас</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f/typed.jpg" alt="Затемнение со списком" loading="lazy"><video data-src="media/f/typed.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Затемнение со списком</b><span>Строки печатаются машинкой</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f/blast.webp" alt="Взрыв за спиной" loading="lazy"><video data-src="media/f/blast.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Взрыв за спиной</b><span>Пламя встаёт за вами, звук удара</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f/outline.webp" alt="Обводка-стикер" loading="lazy"><video data-src="media/f/outline.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Обводка-стикер</b><span>Белый контур вокруг вас</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f/typed.webp" alt="Затемнение со списком" loading="lazy"><video data-src="media/f/typed.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Затемнение со списком</b><span>Строки печатаются машинкой</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/ash.jpg" alt="Сгорает в пепел" loading="lazy"><video data-src="media/f2/ash.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Сгорает в пепел</b><span>Цена монтажёра сгорает: $150 → $0</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/crumple.jpg" alt="Сминается и улетает" loading="lazy"><video data-src="media/f2/crumple.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Сминается и улетает</b><span>Газетная вырезка комкается в мусор</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f2/knockout.jpg" alt="Текст-окно" loading="lazy"><video data-src="media/f2/knockout.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Текст-окно</b><span>Сквозь буквы видно видео, вы поверх</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f2/bigword.jpg" alt="Слово за спиной" loading="lazy"><video data-src="media/f2/bigword.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Слово за спиной</b><span>«3 стиля» встаёт за головой, камера бьёт наездом</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/knockout.webp" alt="Текст-окно" loading="lazy"><video data-src="media/f2/knockout.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Текст-окно</b><span>Сквозь буквы видно видео, вы поверх</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/bigword.webp" alt="Слово за спиной" loading="lazy"><video data-src="media/f2/bigword.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Слово за спиной</b><span>«3 стиля» встаёт за головой, камера бьёт наездом</span></figcaption></figure>
       </div>
     </div>
     <div class="frow"><h3>Фото, вставки, интерфейсы<small>без ротоскопа и ручной маски</small></h3>
       <div class="rail frail">
-        <figure class="fcard"><div class="scr"><img src="media/f2/terminal.jpg" alt="Терминал в ноутбуке" loading="lazy"><video data-src="media/f2/terminal.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Терминал в ноутбуке</b><span>Claude печатает команды и отчитывается</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/terminal.webp" alt="Терминал в ноутбуке" loading="lazy"><video data-src="media/f2/terminal.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Терминал в ноутбуке</b><span>Claude печатает команды и отчитывается</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/window.jpg" alt="Окно macOS" loading="lazy"><video data-src="media/f2/window.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Окно macOS</b><span>Папка «Готовые» наполняется роликами</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/island.jpg" alt="Dynamic Island" loading="lazy"><video data-src="media/f2/island.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Dynamic Island</b><span>Прогресс монтажа в «острове» iPhone</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/notifs.jpg" alt="Уведомления" loading="lazy"><video data-src="media/f2/notifs.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Уведомления</b><span>Стопка пушей на ваших словах</span></figcaption></figure>
-        <figure class="fcard"><div class="scr"><img src="media/f2/phone3d.jpg" alt="3D-телефон" loading="lazy"><video data-src="media/f2/phone3d.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>3D-телефон</b><span>Ваш ролик на экране iPhone</span></figcaption></figure>
+        <figure class="fcard"><div class="scr"><img src="media/f2/phone3d.webp" alt="3D-телефон" loading="lazy"><video data-src="media/f2/phone3d.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>3D-телефон</b><span>Ваш ролик на экране iPhone</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/polaroid.jpg" alt="Фото в рамке" loading="lazy"><video data-src="media/f2/polaroid.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Фото в рамке</b><span>Полароид со скриншотом на 9,2 млн</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/split.jpg" alt="Вставка снизу" loading="lazy"><video data-src="media/f2/split.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Вставка снизу</b><span>Экран делится, вы уезжаете вверх</span></figcaption></figure>
         <figure class="fcard"><div class="scr"><img src="media/f2/redact.jpg" alt="Засекреченный текст" loading="lazy"><video data-src="media/f2/redact.mp4" muted loop playsinline preload="none"></video></div><figcaption><b>Засекреченный текст</b><span>Чёрные полосы слетают по словам</span></figcaption></figure>
@@ -2025,22 +2033,22 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
     <p class="lead" style="margin-top:14px">Помощник сам посоветует 2–3 стиля под ваш ролик. Можно собрать все сразу и выбрать лучший. И ещё 6 стилей субтитров: Классика, Стекло, Волна, Караоке, Тонкий, Макос.</p>
     <div class="styles rail st-rail">
       <div class="st-page">
-        <div class="st"><div class="frame"><img src="media/styles/11.jpg" alt="Стиль Досье" loading="lazy"><video data-src="media/styles/11.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>01</i>Досье</div><div class="d">Папка дела, штампы, газета. Расследования.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/9.jpg" alt="Стиль Макос" loading="lazy"><video data-src="media/styles/9.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>02</i>Макос</div><div class="d">Системное стекло Apple. Приложения, сервисы.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/10.jpg" alt="Стиль Золото" loading="lazy"><video data-src="media/styles/10.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>03</i>Золото</div><div class="d">Синее стекло с золотом. Инвестиции, элитка.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/6.jpg" alt="Стиль Капсулы" loading="lazy"><video data-src="media/styles/6.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>04</i>Капсулы</div><div class="d">Объёмные пилюли. Лайфстайл, путешествия.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/11.webp" alt="Стиль Досье" loading="lazy"><video data-src="media/styles/11.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>01</i>Досье</div><div class="d">Папка дела, штампы, газета. Расследования.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/9.webp" alt="Стиль Макос" loading="lazy"><video data-src="media/styles/9.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>02</i>Макос</div><div class="d">Системное стекло Apple. Приложения, сервисы.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/10.webp" alt="Стиль Золото" loading="lazy"><video data-src="media/styles/10.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>03</i>Золото</div><div class="d">Синее стекло с золотом. Инвестиции, элитка.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/6.webp" alt="Стиль Капсулы" loading="lazy"><video data-src="media/styles/6.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>04</i>Капсулы</div><div class="d">Объёмные пилюли. Лайфстайл, путешествия.</div></div>
       </div>
       <div class="st-page">
-        <div class="st"><div class="frame"><img src="media/styles/5.jpg" alt="Стиль Поп" loading="lazy"><video data-src="media/styles/5.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>05</i>Поп</div><div class="d">Яркие плашки и штампы. Дерзко и быстро.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/1.jpg" alt="Стиль Стекло" loading="lazy"><video data-src="media/styles/1.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>06</i>Стекло</div><div class="d">Тёмное матовое стекло. Подходит почти любому кадру.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/2.jpg" alt="Стиль Панель" loading="lazy"><video data-src="media/styles/2.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>07</i>Панель</div><div class="d">Одна доска на весь ролик: ✕ становятся ✓.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/3.jpg" alt="Стиль Бумага" loading="lazy"><video data-src="media/styles/3.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>08</i>Бумага</div><div class="d">Светлые карточки. Советы, спокойные темы.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/5.webp" alt="Стиль Поп" loading="lazy"><video data-src="media/styles/5.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>05</i>Поп</div><div class="d">Яркие плашки и штампы. Дерзко и быстро.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/1.webp" alt="Стиль Стекло" loading="lazy"><video data-src="media/styles/1.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>06</i>Стекло</div><div class="d">Тёмное матовое стекло. Подходит почти любому кадру.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/2.webp" alt="Стиль Панель" loading="lazy"><video data-src="media/styles/2.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>07</i>Панель</div><div class="d">Одна доска на весь ролик: ✕ становятся ✓.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/3.webp" alt="Стиль Бумага" loading="lazy"><video data-src="media/styles/3.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>08</i>Бумага</div><div class="d">Светлые карточки. Советы, спокойные темы.</div></div>
       </div>
       <div class="st-page">
-        <div class="st"><div class="frame"><img src="media/styles/12.jpg" alt="Стиль Режиссёр" loading="lazy"><video data-src="media/styles/12.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>09</i>Режиссёр</div><div class="d">Кадр уходит в окно монтажки, логотипы падают за голову. ИИ, сервисы, «как сделано».</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/4.jpg" alt="Стиль Скетч" loading="lazy"><video data-src="media/styles/4.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>10</i>Скетч</div><div class="d">Рамки и стрелки от руки. Объяснялки.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/7.jpg" alt="Стиль Неон" loading="lazy"><video data-src="media/styles/7.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>11</i>Неон</div><div class="d">Свечение на тёмном. Техно, ночь.</div></div>
-        <div class="st"><div class="frame"><img src="media/styles/8.jpg" alt="Стиль Ликвид" loading="lazy"><video data-src="media/styles/8.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>12</i>Ликвид</div><div class="d">Жидкое стекло, фон изгибается. Премиум.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/12.webp" alt="Стиль Режиссёр" loading="lazy"><video data-src="media/styles/12.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>09</i>Режиссёр</div><div class="d">Кадр уходит в окно монтажки, логотипы падают за голову. ИИ, сервисы, «как сделано».</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/4.webp" alt="Стиль Скетч" loading="lazy"><video data-src="media/styles/4.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>10</i>Скетч</div><div class="d">Рамки и стрелки от руки. Объяснялки.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/7.webp" alt="Стиль Неон" loading="lazy"><video data-src="media/styles/7.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>11</i>Неон</div><div class="d">Свечение на тёмном. Техно, ночь.</div></div>
+        <div class="st"><div class="frame"><img src="media/styles/8.webp" alt="Стиль Ликвид" loading="lazy"><video data-src="media/styles/8.mp4" muted loop playsinline preload="none"></video></div><div class="n"><i>12</i>Ликвид</div><div class="d">Жидкое стекло, фон изгибается. Премиум.</div></div>
       </div>
     </div>
     <div class="slab trial" id="trial">
@@ -2097,7 +2105,7 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
     <h2>Первый ролик <span class="y">уже сегодня</span></h2>
     <div class="how">
       <figure class="clip tilt-l">
-        <div class="scr"><img src="media/reel/styles3.jpg" alt="Кадр из ролика: исходник в папку, одна фраза, ролик в трёх стилях" width="540" height="960" loading="lazy"><video data-src="media/reel/styles3.mp4" muted loop playsinline preload="none"></video></div>
+        <div class="scr"><img src="media/reel/styles3.webp" alt="Кадр из ролика: исходник в папку, одна фраза, ролик в трёх стилях" width="540" height="960" loading="lazy"><video data-src="media/reel/styles3.mp4" muted loop playsinline preload="none"></video></div>
         <figcaption>исходник в папку, одна фраза, три стиля</figcaption>
       </figure>
       <div class="how-side">
@@ -2108,7 +2116,7 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
     <div class="guide-pack">
       <div class="gp-book" aria-hidden="true">
         <div class="gp-stack"></div>
-        <img class="gp-cover" src="media/guide2/cover.jpg" alt="" width="600" height="820" loading="lazy">
+        <img class="gp-cover" src="media/guide2/cover.webp" alt="" width="600" height="820" loading="lazy">
         <span class="gp-badge">PDF</span>
       </div>
       <div class="gp-text">
@@ -2373,6 +2381,27 @@ const CONFIG = { posthogKey: "phc_tkVTtmo9rUdbqzWxn2PZxyGGMfsBuom6MBNcxmEmm3fj",
 
 // A/B-тест «таймер у цены»: половина посетителей видит обратный отсчёт до конца окна запуска, половина нет.
 // Группа закрепляется за браузером; посмотреть нужную вручную: ?ab=timer или ?ab=notimer
+// Главная картинка первого экрана грузится первой: фото ниже и видео первого экрана ждут её (или 4 с), чтобы не делить с ней медленный интернет
+const HERO_READY = new Promise((res) => {
+  const l = document.querySelector('link[rel="preload"][as="image"]'); if (!l) return res();
+  const i = new Image(); i.onload = i.onerror = () => res(); i.src = l.href;
+  setTimeout(res, 4000);
+});
+(function laterImages() {
+  const imgs = [...document.querySelectorAll("img[data-later]")]; if (!imgs.length) return;
+  const put = (i) => { if (!i.dataset.later) return; i.src = i.dataset.later; delete i.dataset.later; };
+  let on = false;
+  const start = () => {
+    if (on) return; on = true;
+    if (!("IntersectionObserver" in window)) return imgs.forEach(put);
+    const io = new IntersectionObserver((es) => es.forEach((e) => { if (e.isIntersecting) { io.unobserve(e.target); put(e.target); } }), { rootMargin: "1600px 0px" });
+    imgs.forEach((i) => io.observe(i));
+  };
+  HERO_READY.then(start);
+  addEventListener("scroll", start, { once: true, passive: true });
+})();
+if (document.readyState === "complete") document.documentElement.classList.add("ld"); else addEventListener("load", () => document.documentElement.classList.add("ld"), { once: true });
+
 const AB_TIMER = (() => {
   const forced = new URLSearchParams(location.search).get("ab");
   if (forced === "timer" || forced === "notimer") return forced === "timer" ? "с таймером" : "без таймера";
@@ -2413,8 +2442,9 @@ let cur = "m1", soundOn = false, userPicked = false;
 // на слабом интернете сначала грузится только «Монтаж 1»; два других варианта подтягиваются, когда он готов
 const warm = (v) => { if (v.dataset.poster && !v.getAttribute("poster")) v.poster = v.dataset.poster; if (v.preload !== "auto") { v.preload = "auto"; v.load(); } };
 const warmRest = () => { warm(vids.m2); warm(vids.before); };
-if (vids.m1.readyState >= 3) setTimeout(warmRest, 300); else vids.m1.addEventListener("canplaythrough", () => setTimeout(warmRest, 300), { once: true });
-setTimeout(warmRest, 6000);
+const slowNet = (() => { const c = navigator.connection; return !!(c && (c.saveData || /2g|3g/.test(c.effectiveType || ""))); })();
+if (vids.m1.readyState >= 4) setTimeout(warmRest, 300); else vids.m1.addEventListener("canplaythrough", () => setTimeout(warmRest, 300), { once: true });
+if (!slowNet) setTimeout(warmRest, 12000);   // запасной путь, если браузер так и не сказал «готово» (бывает на iPhone)
 function show(k) {
   if (k === cur) return;
   warm(vids[k]);
@@ -2432,7 +2462,12 @@ function show(k) {
 document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("click", () => { userPicked = true; show(b.dataset.v); }));
 // пока человек не выбрал сам, варианты сменяют друг друга: монтаж 1 → монтаж 2 → без монтажа
 const ORDER = ["m1", "m2", "before"], HOLD = { m1: 7000, m2: 7000, before: 4000 };
-const autoNext = () => { if (!userPicked && !document.hidden) show(ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length]); setTimeout(autoNext, HOLD[cur]); };
+// следующий вариант показываем, только когда он уже загружен: иначе на медленном интернете вместо ролика будет пустой кадр
+const autoNext = () => {
+  const nx = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length], ready = vids[nx].readyState >= 3;
+  if (!userPicked && !document.hidden && ready) show(nx);
+  setTimeout(autoNext, ready ? HOLD[cur] : 1500);
+};
 setTimeout(autoNext, HOLD.m1);
 const soundBtn = document.getElementById("sound");
 soundBtn.addEventListener("click", () => {
@@ -2445,8 +2480,7 @@ soundBtn.addEventListener("click", () => {
 });
 // первый экран: сначала шрифты и постер (рисуются сразу), видео «Монтаж 1» начинает грузиться следом, не отнимая канал у постера
 const startHero = () => { if (vids.m1.preload !== "auto") { vids.m1.preload = "auto"; vids.m1.load(); } vids.m1.play().catch(() => {}); };
-if (document.readyState === "complete") setTimeout(startHero, 50); else addEventListener("load", () => setTimeout(startHero, 50), { once: true });
-setTimeout(startHero, 2500);   // страховка: на очень медленном интернете «load» может прийти поздно
+HERO_READY.then(() => setTimeout(startHero, 50));   // видео грузится сразу после постера (не позже 4 с)
 
 // счёт монтажёра
 const fmt = (n) => "$" + Math.round(n).toLocaleString("ru-RU").replace(/ /g, " ");
@@ -2588,7 +2622,9 @@ function initRail(rail, k) {
   new IntersectionObserver((es) => { inV = es[0].isIntersecting; }, { threshold: .5 }).observe(rail);
   [rail, dots].forEach((el) => { el.addEventListener("mouseenter", () => { hold = true; dots.classList.remove("auto"); }); el.addEventListener("mouseleave", () => { hold = false; }); el.addEventListener("focusin", () => { hold = true; }); el.addEventListener("focusout", () => { hold = false; }); });
   setTimeout(() => setInterval(() => { const a = auto(); dots.classList.toggle("auto", a); if (a) go((act + 1) % pos.length); }, DUR), k * 450);
-  addEventListener("resize", measure); measure();
+  addEventListener("resize", measure);
+  const ioM = new IntersectionObserver((es) => { if (es[0].isIntersecting) { ioM.disconnect(); measure(); } }, { rootMargin: "900px 0px" });
+  ioM.observe(rail);
 }
 document.querySelectorAll(".rail").forEach(initRail);
 
