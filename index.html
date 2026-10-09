@@ -403,6 +403,7 @@
   src: url(media/fonts/unbounded-37e64138.woff2) format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
 }
+
 </style>
 <style>
 :root {
@@ -1713,6 +1714,12 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
   .fa-c b { font-size: 15.5px; } .fa-c span { font-size: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .fa-c, .fa-c img { transition: none; } #faCta.lit { animation: none; } }
+/* пробные Reels 09.10: «Вариант N» вместо названий стилей (новым людям «Досье» ничего не говорит), стиль мелко ниже;
+   миниатюры квадратные по плашке инфографики, чтобы разница вариантов была видна */
+.pr-list img { width: 48px; height: 48px; border-radius: 11px; object-fit: cover; }
+.pr-meta small { display: block; margin-top: 4px; font: 500 10.5px/1 var(--mono); letter-spacing: .03em; color: var(--dim); }
+.pr-bar { margin-top: 8px; }
+.pr-list li.won .pr-meta small { color: var(--mute); }
 </style>
 <script>/* анимации включаются до первой отрисовки, чтобы блоки не мигали */ if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("fx");</script>
 
@@ -2030,11 +2037,11 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
         <div class="pr-cmd"><span>сделай 5 вариантов в разных стилях</span></div>
         <div class="pr-top"><i></i>Пробные Reels<em>охват новых людей</em></div>
         <ol class="pr-list">
-          <li><img src="media/styles/11.jpg" alt="" width="34" height="60" loading="lazy"><div class="pr-meta"><b>Досье</b><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
-          <li><img src="media/styles/9.jpg" alt="" width="34" height="60" loading="lazy"><div class="pr-meta"><b>Макос</b><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
-          <li><img src="media/styles/5.jpg" alt="" width="34" height="60" loading="lazy"><div class="pr-meta"><b>Поп</b><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
-          <li><img src="media/styles/10.jpg" alt="" width="34" height="60" loading="lazy"><div class="pr-meta"><b>Золото</b><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
-          <li><img src="media/styles/6.jpg" alt="" width="34" height="60" loading="lazy"><div class="pr-meta"><b>Капсулы</b><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
+          <li><img src="media/inside/trial-11.webp" alt="" width="112" height="112" loading="lazy"><div class="pr-meta"><b>Вариант 1</b><small>стиль Досье</small><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
+          <li><img src="media/inside/trial-9.webp" alt="" width="112" height="112" loading="lazy"><div class="pr-meta"><b>Вариант 2</b><small>стиль Макос</small><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
+          <li><img src="media/inside/trial-5.webp" alt="" width="112" height="112" loading="lazy"><div class="pr-meta"><b>Вариант 3</b><small>стиль Поп</small><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
+          <li><img src="media/inside/trial-10.webp" alt="" width="112" height="112" loading="lazy"><div class="pr-meta"><b>Вариант 4</b><small>стиль Золото</small><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
+          <li><img src="media/inside/trial-6.webp" alt="" width="112" height="112" loading="lazy"><div class="pr-meta"><b>Вариант 5</b><small>стиль Капсулы</small><span class="pr-bar"><i></i></span></div><em class="pr-win">в рекомендациях</em></li>
         </ol>
       </div>
       <div class="trial-vs">
