@@ -35,11 +35,11 @@
 <script>
   const FREE = { transcriber: "https://yadi.sk/d/iaBvskzG9Tribw" };   // бесплатный подарок, его адрес не секрет
   const q = new URLSearchParams(location.search);
-  // только публичные ссылки Яндекс Диска: yadi.sk и disk.yandex.<зона>, по https
+  // только публичные ссылки Яндекс Диска: yadi.sk и disk.yandex.<зона>, по https (иначе страницей можно увести на чужой сайт)
   const yandex = (s) => {
     try {
       const u = new URL(s);
-      return u.protocol === "https:" && (u.hostname === "yadi.sk" || /^disk\.yandex\.[a-z.]+$/.test(u.hostname)) ? u.href : "";
+      return u.protocol === "https:" && (u.hostname === "yadi.sk" || /^disk\.yandex\.(ru|com|kz|by|ua|uz|az|com\.tr|com\.am|com\.ge)$/.test(u.hostname)) ? u.href : "";
     } catch (e) { return ""; }
   };
   const page = yandex(q.get("u") || "") || FREE[q.get("f")] || "";
