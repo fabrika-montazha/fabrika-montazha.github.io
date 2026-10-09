@@ -2787,7 +2787,7 @@ if (CONFIG.launchEnd) {
   tick(); setInterval(tick, 1000);
 }
 
-// нижняя кнопка на телефоне: только после того, как человек дошёл до цены; прячется над ценой и в финале (там своя кнопка)
+// нижняя кнопка на телефоне: только после того, как человек увидел цену (дошёл до неё или собрал пазл); прячется, когда на экране есть другая «Забрать пак»
 const dock = document.getElementById("dock"), priceSec = document.getElementById("price"), finalSec = document.querySelector(".final");
 let priceSeen = false;
 function dockUpdate() {
@@ -2795,8 +2795,12 @@ function dockUpdate() {
   if (pr.top < innerHeight * .5) priceSeen = true;
   const nearPrice = pr.top < innerHeight && pr.bottom > 0, fin = finalSec.getBoundingClientRect();
   const gf = document.getElementById("gift").getBoundingClientRect(), nearGift = gf.top < innerHeight && gf.bottom > 0;  // в подарке своя кнопка «Скачать бесплатно»
-  dock.classList.toggle("show", priceSeen && !hdr.classList.contains("show") && !nearPrice && !nearGift && !(fin.top < innerHeight && fin.bottom > 0));
+  dock.classList.toggle("show", priceSeen && !hdr.classList.contains("show") && !nearPrice && !nearGift && !(fin.top < innerHeight && fin.bottom > 0) && !buyOnScreen());
 }
+// нижняя кнопка не дублирует: если на экране уже видна другая «Забрать пак» (бонус пазла, цена, финал), её не показываем
+const otherBuys = [...document.querySelectorAll(".buy")].filter((b) => !b.closest(".dock"));
+function buyOnScreen() { return otherBuys.some((b) => { if (!b.offsetParent) return false; const r = b.getBoundingClientRect(); return r.width > 0 && r.bottom > 0 && r.top < innerHeight; }); }
+document.addEventListener("fit-complete", () => { priceSeen = true; });   // пазл собран: цену уже показали
 
 // шапка и «Наверх»: шапка выезжает, когда человек листает вверх (ищет что-то), и прячется, когда читает дальше вниз.
 // Кнопка «Наверх»: на компьютере после 3-го экрана; на телефоне вместе с шапкой и в конце страницы, чтобы не закрывать текст и нижнюю кнопку
