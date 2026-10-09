@@ -1753,6 +1753,19 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
 .fu-r .btn { margin-top: 10px; }
 @media (max-width: 680px) { .fu-in { grid-template-columns: 1fr; padding: 0 20px; } .fu.open .fu-in { padding: 20px; } .fu-r .btn { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .pz-p, .fu { transition: none; } .pz.done .pz-svg, .pz.done::before, .pz-burst i { animation: none; } }
+
+/* Видео без касания (iPhone в энергосбережении, встроенные браузеры Telegram и др.): браузер не даёт запускать видео самим.
+   Тогда любое касание страницы запускает видео на экране, а до касания на них жёлтая кнопка ▶ */
+.tap-play { position: absolute; left: 50%; top: 50%; z-index: 6; width: 58px; height: 58px; margin: -29px 0 0 -29px; padding: 0; border: 0; border-radius: 50%;
+  display: none; place-items: center; cursor: pointer; color: #141200;
+  background: radial-gradient(circle at 35% 30%, #FFF6A8, #FFE94A 55%, #E2C81C);
+  box-shadow: 0 0 0 6px rgba(255,233,74,.2), 0 10px 30px rgba(0,0,0,.55), 0 0 40px rgba(255,233,74,.35); }
+.tap-play svg { width: 26px; height: 26px; margin-left: 3px; }
+.vwait > .tap-play { display: grid; animation: tapPulse 1.6s ease-in-out infinite; }
+.st .tap-play, .fcard .tap-play, .phn .tap-play { width: 46px; height: 46px; margin: -23px 0 0 -23px; }
+.st .tap-play svg, .fcard .tap-play svg, .phn .tap-play svg { width: 20px; height: 20px; }
+@keyframes tapPulse { 50% { transform: scale(1.08); } }
+@media (prefers-reduced-motion: reduce) { .vwait > .tap-play { animation: none; } }
 </style>
 <script>/* анимации включаются до первой отрисовки, чтобы блоки не мигали */ if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("fx");</script>
 
@@ -2435,6 +2448,40 @@ if (matchMedia("(pointer: fine)").matches) {
   hero.addEventListener("pointermove", (e) => { const r = hero.getBoundingClientRect(); glow.style.left = (e.clientX - r.left) + "px"; glow.style.top = (e.clientY - r.top) + "px"; });
 }
 
+// Запуск видео. Обычно браузер разрешает видео без звука играть самим. iPhone в энергосбережении и встроенные браузеры
+// (Telegram и др.) запрещают: play() отклоняется. Тогда видео, которые должны играть (WANT), запускаются при любом касании
+// страницы, а до него на них кнопка ▶. Видео, запущенное касанием, дальше играет и останавливается само.
+const WANT = new Set(); let vBlocked = false;
+const PLAY_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.8v14.4L19.5 12z" fill="currentColor"/></svg>';
+function vMark(v) {
+  const box = v.parentElement; if (!box) return;
+  const wait = vBlocked && [...box.querySelectorAll("video")].some((x) => WANT.has(x) && x.paused);
+  if (wait && !box.querySelector(":scope > .tap-play")) { const b = document.createElement("button"); b.type = "button"; b.className = "tap-play"; b.setAttribute("aria-label", "Смотреть видео"); b.innerHTML = PLAY_ICON; box.appendChild(b); }
+  box.classList.toggle("vwait", wait);
+}
+function playV(v) {
+  WANT.add(v);
+  const p = v.play();
+  if (p && p.then) p.then(() => { v.classList.add("playing"); vMark(v); }).catch((e) => { if (e && e.name === "NotAllowedError") { vBlocked = true; vMark(v); } });
+}
+function stopV(v) { WANT.delete(v); v.pause(); vMark(v); }
+// касание: запускаем то, что должно играть, и заодно «разрешаем» видео в 1–2 экранах вокруг: браузер запоминает разрешение
+// для каждого видео, и дальше они играют сами, когда до них долистают (иначе пришлось бы нажимать на каждое)
+const vPrimed = new WeakSet();
+const vKick = () => {
+  if (!vBlocked) return;
+  WANT.forEach((v) => { if (v.paused) playV(v); });
+  const H = innerHeight;
+  document.querySelectorAll("video").forEach((v) => {
+    if (vPrimed.has(v) || WANT.has(v) || !(v.src || v.dataset.src)) return;
+    const r = v.getBoundingClientRect(); if (r.bottom < -H || r.top > H * 2.5) return;
+    vPrimed.add(v); if (!v.src) v.src = v.dataset.src;
+    const p = v.play(); if (p && p.then) p.then(() => { if (!WANT.has(v)) v.pause(); }).catch(() => {});
+  });
+};
+["touchend", "click", "pointerup", "keydown"].forEach((ev) => document.addEventListener(ev, vKick, { capture: true, passive: true }));
+document.addEventListener("playing", (e) => { if (e.target.tagName === "VIDEO") vMark(e.target); }, true);
+
 // телефон: один кусок ролика «Монтаж» без монтажа и в двух вариантах монтажа, переключение с сохранением момента
 const vids = { before: document.getElementById("v-before"), m1: document.getElementById("v-m1"), m2: document.getElementById("v-m2") };
 const names = { before: "БЕЗ МОНТАЖА", m1: "МОНТАЖ 1", m2: "МОНТАЖ 2" };
@@ -2452,9 +2499,9 @@ function show(k) {
   const next = vids[k];
   try { next.currentTime = t; } catch (e) {}
   next.muted = !soundOn;
-  next.play().catch(() => {});
+  playV(next);
   next.classList.add("on"); vids[cur].classList.remove("on");
-  const prev = vids[cur]; setTimeout(() => { if (prev !== vids[cur]) { prev.pause(); prev.muted = true; } }, 400);
+  const prev = vids[cur]; WANT.delete(prev); setTimeout(() => { if (prev !== vids[cur]) { stopV(prev); prev.muted = true; } }, 400);
   cur = k;
   document.getElementById("vTag").textContent = names[k];
   document.querySelectorAll(".seg button").forEach((b) => b.setAttribute("aria-pressed", String(b.dataset.v === k)));
@@ -2467,21 +2514,21 @@ const ORDER = ["m1", "m2", "before"], HOLD = { m1: 7000, m2: 7000, before: 4000 
 const hasAt = (v, t) => { const e = Math.min(v.duration || t + 1.5, t + 1.5); for (let i = 0; i < v.buffered.length; i++) if (v.buffered.start(i) <= t && v.buffered.end(i) >= e) return true; return false; };
 const autoNext = () => {
   const nx = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length], ready = vids[nx].readyState >= 3 && hasAt(vids[nx], vids[cur].currentTime);
-  if (!userPicked && !document.hidden && ready) show(nx);
+  if (!userPicked && !document.hidden && ready && !vids[cur].paused) show(nx);   // пока ролик стоит (браузер ждёт касания), варианты не листаем
   setTimeout(autoNext, ready ? HOLD[cur] : 1500);
 };
 setTimeout(autoNext, HOLD.m1);
 const soundBtn = document.getElementById("sound");
 soundBtn.addEventListener("click", () => {
   soundOn = !soundOn; userPicked = true;
-  vids[cur].muted = !soundOn; vids[cur].play().catch(() => {});
+  vids[cur].muted = !soundOn; playV(vids[cur]);
   soundBtn.setAttribute("aria-pressed", String(soundOn));
   soundBtn.setAttribute("aria-label", soundOn ? "Выключить звук" : "Включить звук");
   document.getElementById("snd-x").toggleAttribute("hidden", soundOn);
   document.getElementById("snd-w").toggleAttribute("hidden", !soundOn);
 });
 // первый экран: сначала шрифты и постер (рисуются сразу), видео «Монтаж 1» начинает грузиться следом, не отнимая канал у постера
-const startHero = () => { if (vids.m1.preload !== "auto") { vids.m1.preload = "auto"; vids.m1.load(); } vids.m1.play().catch(() => {}); };
+const startHero = () => { if (vids.m1.preload !== "auto") { vids.m1.preload = "auto"; vids.m1.load(); } playV(vids.m1); };
 HERO_READY.then(() => setTimeout(startHero, 50));   // видео грузится сразу после постера (не позже 4 с)
 
 // счёт монтажёра
@@ -2574,8 +2621,8 @@ faCards.forEach((c) => c.addEventListener("click", () => {
 const io = new IntersectionObserver((entries) => {
   entries.forEach((en) => {
     const v = en.target;
-    if (en.isIntersecting) { if (!v.src) v.src = v.dataset.src; v.play().then(() => v.classList.add("playing")).catch(() => {}); }
-    else { v.pause(); }
+    if (en.isIntersecting) { if (!v.src) v.src = v.dataset.src; playV(v); }
+    else if (WANT.has(v) || !v.paused) stopV(v);
   });
 }, { threshold: .55 });
 document.querySelectorAll(".st video, .phn video, .fcard video, .clip video").forEach((v) => io.observe(v));
