@@ -2394,6 +2394,32 @@ const CONFIG = { posthogKey: "phc_tkVTtmo9rUdbqzWxn2PZxyGGMfsBuom6MBNcxmEmm3fj",
 
 // A/B-тест «таймер у цены»: половина посетителей видит обратный отсчёт до конца окна запуска, половина нет.
 // Группа закрепляется за браузером; посмотреть нужную вручную: ?ab=timer или ?ab=notimer
+// Обновление страницы всегда открывает первый экран. Иначе браузер возвращает туда, где человек был, или к якорю в адресе
+// (кнопка «Посчитать» оставляла в адресе #calc, и каждое обновление открывало калькулятор).
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+(function startAtTop() {
+  const nav = (performance.getEntriesByType && performance.getEntriesByType("navigation")[0]) || {};
+  const clearHash = () => { if (location.hash) history.replaceState(history.state, "", location.pathname + location.search); };
+  if (nav.type === "reload") {
+    clearHash();
+    let moved = false; ["wheel", "touchstart", "keydown", "mousedown"].forEach((ev) => addEventListener(ev, () => (moved = true), { once: true, passive: true }));
+    const top0 = () => { if (!moved) scrollTo({ top: 0, left: 0, behavior: "instant" }); };
+    top0(); addEventListener("load", () => { top0(); requestAnimationFrame(top0); }, { once: true });
+  } else if (location.hash) {
+    // пришли по ссылке с якорем (например …/#price): браузер сам доводит до блока, а из адреса якорь убираем, чтобы обновление открыло первый экран
+    addEventListener("load", () => setTimeout(clearHash, 400), { once: true });
+  }
+  addEventListener("hashchange", () => setTimeout(clearHash, 400));   // якорь, набранный в адресе вручную
+  // ссылки внутри страницы (#calc, #features…): плавно к блоку, в адрес якорь не пишем
+  document.addEventListener("click", (e) => {
+    if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+    const a = e.target.closest && e.target.closest('a[href^="#"]'); if (!a) return;
+    const id = decodeURIComponent(a.getAttribute("href").slice(1)), t = id && document.getElementById(id); if (!t) return;
+    e.preventDefault();
+    t.scrollIntoView({ block: "start", behavior: matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth" });
+  });
+})();
+
 // Главная картинка первого экрана грузится первой: фото ниже и видео первого экрана ждут её (или 4 с), чтобы не делить с ней медленный интернет
 const HERO_READY = new Promise((res) => {
   const l = document.querySelector('link[rel="preload"][as="image"]'); if (!l) return res();
