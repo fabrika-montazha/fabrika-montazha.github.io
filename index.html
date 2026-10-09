@@ -2463,8 +2463,10 @@ document.querySelectorAll(".seg button").forEach((b) => b.addEventListener("clic
 // пока человек не выбрал сам, варианты сменяют друг друга: монтаж 1 → монтаж 2 → без монтажа
 const ORDER = ["m1", "m2", "before"], HOLD = { m1: 7000, m2: 7000, before: 4000 };
 // следующий вариант показываем, только когда он уже загружен: иначе на медленном интернете вместо ролика будет пустой кадр
+// (загружен именно тот момент, с которого продолжится показ: переключение идёт «с сохранением момента»)
+const hasAt = (v, t) => { const e = Math.min(v.duration || t + 1.5, t + 1.5); for (let i = 0; i < v.buffered.length; i++) if (v.buffered.start(i) <= t && v.buffered.end(i) >= e) return true; return false; };
 const autoNext = () => {
-  const nx = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length], ready = vids[nx].readyState >= 3;
+  const nx = ORDER[(ORDER.indexOf(cur) + 1) % ORDER.length], ready = vids[nx].readyState >= 3 && hasAt(vids[nx], vids[cur].currentTime);
   if (!userPicked && !document.hidden && ready) show(nx);
   setTimeout(autoNext, ready ? HOLD[cur] : 1500);
 };
