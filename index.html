@@ -1679,8 +1679,6 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
 @media (prefers-reduced-motion: reduce) { .faq.opened details.more { animation: none; } }
 
 /* путь покупателя 08.10: подсказка для браузера Instagram, вопрос до покупки, подарок с телефона */
-.inapp-tip { margin: 10px 0 0; padding: 10px 12px; border-radius: 12px; border: 1px solid rgba(255,233,74,.25); background: rgba(255,233,74,.05); font-size: 13px; line-height: 1.45; color: #DAD8D0; }
-.final .inapp-tip { max-width: 420px; margin: 14px auto 0; }
 .faq-ask { margin: 18px 0 0; font-size: 15px; color: var(--mute); }
 .faq-ask a { color: var(--y); text-underline-offset: 4px; }
 
@@ -2737,20 +2735,7 @@ document.querySelectorAll(".buy").forEach((a) => {
   if (CONFIG.buyUrl) { a.href = CONFIG.buyUrl; a.target = "_blank"; a.rel = "noopener"; }
   else if (a.id === "buyMain") a.addEventListener("click", (e) => { e.preventDefault(); document.getElementById("toast").hidden = false; });
 });
-// оплата в Telegram: сначала открываем приложение напрямую (tg://), а сайт t.me только запасным путём:
-// у части провайдеров t.me не грузится, и кнопка «висит»
-const tgDeep = (u) => { try { const x = new URL(u); if (!/^(t|telegram)\.me$/.test(x.hostname)) return null; const [d, app] = x.pathname.split("/").filter(Boolean); if (!d) return null;
-  let q = "domain=" + encodeURIComponent(d); if (app) q += "&appname=" + encodeURIComponent(app); x.searchParams.forEach((v, k) => { q += "&" + k + "=" + encodeURIComponent(v); }); return "tg://resolve?" + q; } catch (e) { return null; } };
-const buyDeep = CONFIG.buyUrl && tgDeep(CONFIG.buyUrl);
-if (buyDeep) document.querySelectorAll(".buy").forEach((a) => a.addEventListener("click", (e) => {
-  e.preventDefault(); let left = false; const off = () => (left = true);
-  addEventListener("pagehide", off, { once: true }); document.addEventListener("visibilitychange", () => document.hidden && off(), { once: true });
-  location.href = buyDeep;
-  setTimeout(() => { if (!left && !document.hidden) location.href = CONFIG.buyUrl; }, 1500);
-}));
-// браузер внутри Instagram: показываем подсказку, как открыть Telegram для оплаты
-if (/Instagram|FBAN|FBAV|FB_IAB/i.test(navigator.userAgent)) document.querySelectorAll(".inapp-tip").forEach((p) => (p.hidden = false));
-// подарок с телефона: Транскрибатор ставится на компьютер, поэтому на телефоне кнопка отправляет ссылку себе (в Telegram «Избранное», заметки)
+// подарок с телефона: Транскрибатор ставится на компьютер, поэтому на телефоне кнопка отправляет ссылку себе (мессенджер, заметки)
 (function giftOnPhone() {
   const btn = document.getElementById("giftBtn"); if (!btn || !matchMedia("(pointer: coarse) and (max-width: 1023px)").matches) return;
   btn.innerHTML = 'Отправить на компьютер <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 3L10 14"/><path d="M21 3l-7 18-4-7-7-4z"/></svg>';
