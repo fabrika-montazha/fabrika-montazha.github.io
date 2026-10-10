@@ -3098,12 +3098,23 @@ addEventListener("scroll", onScroll, { passive: true }); addEventListener("resiz
   if (/[?&]test=1(&|$)/.test(location.search)) return;   // служебные проверки сайта (…/?test=1) не попадают в статистику
   // свои устройства: открыть сайт один раз по ссылке …/?me=1, и это устройство больше не считается (…/?me=0 вернуть)
   try { const me = new URLSearchParams(location.search).get("me"); if (me === "1") localStorage.setItem("fm_me", "1"); if (me === "0") localStorage.removeItem("fm_me"); if (localStorage.getItem("fm_me")) return; } catch (_) {}
+  // Программы, а не люди: проверки доступности и роботы соцсетей открывают сайт на серверах без видеокарты (страницу рисует
+  // процессор: SwiftShader, llvmpipe, или WebGL нет вовсе), с экранами 800×600 / 2000×2000 или с подделанной системой
+  // (Windows 7 с Chrome новее 110-го, такого не бывает). Для них статистика не включается.
+  let GPU = "";
+  const isBot = () => {
+    try { const gl = document.createElement("canvas").getContext("webgl"); if (!gl) { GPU = "нет WebGL"; } else { const x = gl.getExtension("WEBGL_debug_renderer_info"); GPU = String(gl.getParameter(x ? x.UNMASKED_RENDERER_WEBGL : gl.RENDERER) || ""); } } catch (_) { GPU = "ошибка"; }
+    const ua = navigator.userAgent, cv = +((ua.match(/Chrome\/(\d+)/) || [])[1] || 0), sw = screen.width, sh = screen.height;
+    return GPU === "нет WebGL" || /SwiftShader|llvmpipe|softpipe|Mesa OffScreen|Basic Render/i.test(GPU) || (/Windows NT 6\./.test(ua) && cv >= 110) || (sw === 800 && sh === 600) || (sw === 2000 && sh === 2000);
+  };
   const start = () => {
+    if (isBot()) return;
     try {
       !function(t,e){var o,n,p,r;e.__SV||(window.posthog=e,e._i=[],e.init=function(i,s,a){function g(t,e){var o=e.split(".");2==o.length&&(t=t[o[0]],e=o[1]),t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}}(p=t.createElement("script")).type="text/javascript",p.crossOrigin="anonymous",p.async=!0,p.src=s.api_host.replace(".i.posthog.com","-assets.i.posthog.com")+"/static/array.js",(r=t.getElementsByTagName("script")[0]).parentNode.insertBefore(p,r);var u=e;for(void 0!==a?u=e[a]=[]:a="posthog",u.people=u.people||[],Object.defineProperty(u,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(t){var e="posthog";return"posthog"!==a&&(e+="."+a),t||(e+=" (stub)"),e}}),Object.defineProperty(u.people,"toString",{configurable:!0,enumerable:!0,writable:!0,value:function(){return u.toString(1)+".people (stub)"}}),o="init capture register register_once register_for_session unregister unregister_for_session getFeatureFlag getFeatureFlagResult isFeatureEnabled reloadFeatureFlags updateEarlyAccessFeatureEnrollment getEarlyAccessFeatures on onFeatureFlags onSessionId getSurveys getActiveMatchingSurveys renderSurvey canRenderSurvey getNextSurveyStep identify setPersonProperties group resetGroups setPersonPropertiesForFlags resetPersonPropertiesForFlags setGroupPropertiesForFlags resetGroupPropertiesForFlags reset get_distinct_id getGroups get_session_id get_session_replay_url alias set_config startSessionRecording stopSessionRecording sessionRecordingStarted captureException loadToolbar get_property getSessionProperty createPersonProfile opt_in_capturing opt_out_capturing has_opted_in_capturing has_opted_out_capturing clear_opt_in_out_capturing debug".split(" "),n=0;n<o.length;n++)g(u,o[n]);e._i.push([i,s,a])},e.__SV=1)}(document,window.posthog||[]);
       posthog.init(CONFIG.posthogKey, { api_host: "https://eu.i.posthog.com", defaults: "2026-05-30", person_profiles: "identified_only", enable_heatmaps: true, capture_pageleave: true, disable_surveys: true, session_recording: { maskAllInputs: true } });
     } catch (e) { return; }
     const T0 = performance.now(), track = (ev, props, opts) => { try { posthog.capture(ev, props || {}, opts); } catch (_) {} };
+    try { posthog.register({ gpu: GPU.slice(0, 80) }); } catch (_) {}   // видеокарта: по ней видно, если программа всё же прошла
     // A/B-тест таймера: группа уходит со всеми событиями визита, плюс одно событие ab_view для подсчёта людей в группах
     if (typeof AB_TIMER !== "undefined") { try { posthog.register({ ab_timer: AB_TIMER }); } catch (_) {} track("ab_view", { ab_timer: AB_TIMER }); }
     // воронка: каждый блок отмечается один раз за визит, когда его верх доходит до середины экрана
