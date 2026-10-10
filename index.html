@@ -1754,6 +1754,18 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
 @media (max-width: 680px) { .fu-in { grid-template-columns: 1fr; padding: 0 20px; } .fu.open .fu-in { padding: 20px; } .fu-r .btn { width: 100%; } }
 @media (prefers-reduced-motion: reduce) { .pz-p, .fu { transition: none; } .pz.done .pz-svg, .pz.done::before, .pz-burst i { animation: none; } }
 
+
+/* Первая кнопка «Забрать» сразу после «Первый ролик уже сегодня» (10.10.2026: до цены листать далеко) */
+.buy-early { margin-top: clamp(28px, 4vw, 44px); display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 18px 36px; align-items: center;
+  padding: clamp(20px, 3vw, 30px) clamp(20px, 3.2vw, 36px); border-radius: 24px; border: 1.5px solid rgba(255,233,74,.55);
+  background: radial-gradient(110% 140% at 100% 0%, rgba(255,233,74,.17), transparent 60%), linear-gradient(165deg, #17160F, #0D0D0C 70%);
+  box-shadow: inset 0 1px 0 rgba(255,247,184,.16), 0 0 50px rgba(255,233,74,.1), 0 30px 60px rgba(0,0,0,.45); }
+.be-text h3 { margin: 10px 0 0; font-size: clamp(21px, 2.5vw, 30px); }
+.be-text p { margin: 10px 0 0; color: #DAD8D0; font-size: 15px; max-width: 52ch; }
+.be-buy { display: grid; justify-items: center; gap: 12px; }
+.be-more { font: 600 12.5px/1.2 var(--mono); color: var(--mute); text-decoration: none; border-bottom: 1px dashed rgba(255,255,255,.25); padding-bottom: 2px; }
+.be-more:hover { color: var(--y); border-color: rgba(255,233,74,.6); }
+@media (max-width: 767px) { .buy-early { grid-template-columns: 1fr; } .be-buy .btn { width: 100%; } }
 </style>
 <script>/* анимации включаются до первой отрисовки, чтобы блоки не мигали */ if ("IntersectionObserver" in window && !matchMedia("(prefers-reduced-motion: reduce)").matches) document.documentElement.classList.add("fx");</script>
 
@@ -1900,10 +1912,55 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
   </div>
 </section>
 
+<!-- КАК ЭТО РАБОТАЕТ + ГАЙД + ПЕРВАЯ КНОПКА «ЗАБРАТЬ» (10.10: сразу после «Фабрики», до цены листать далеко) -->
+<section id="how">
+  <div class="wrap">
+    <div class="chapter" data-n="03" data-t="Как это работает"><span class="ch-tc">00:00</span><span class="ch-clip"><b>03</b>Как это работает</span><i class="ch-track"></i></div>
+    <h2>Первый ролик <span class="y">уже сегодня</span></h2>
+    <div class="how">
+      <figure class="clip tilt-l">
+        <div class="scr"><img src="media/reel/styles3.webp" alt="Кадр из ролика: исходник в папку, одна фраза, ролик в трёх стилях" width="540" height="960" loading="lazy"><video data-src="media/reel/styles3.mp4" muted loop playsinline preload="none"></video></div>
+        <figcaption>исходник в папку, одна фраза, три стиля</figcaption>
+      </figure>
+      <div class="how-side">
+        <p class="lead">Программировать не нужно: кладёте видео в папку и пишете помощнику обычными словами. Он сам соберёт ролик в нескольких стилях, а гайд с картинками проведёт от установки до первого ролика.</p>
+        <div class="slab ten"><b class="x3d">10 роликов за 2,5 часа</b><span>Один минутный ролик в одном стиле собирается примерно за 15 минут на Mac с процессором M. Запустили десять, и через 2,5 часа они готовы, а вы всё это время свободны.</span></div>
+      </div>
+    </div>
+    <div class="guide-pack">
+      <div class="gp-book" aria-hidden="true">
+        <div class="gp-stack"></div>
+        <img class="gp-cover" src="media/guide2/cover.webp" alt="" width="600" height="820" loading="lazy">
+        <span class="gp-badge">PDF</span>
+      </div>
+      <div class="gp-text">
+        <div class="eyebrow">Внутри пака</div>
+        <h3>Гайд «Как начать»</h3>
+        <p class="gp-meta">PDF · 19 страниц с картинками</p>
+        <ul class="gp-toc">
+          <li>Путь до первого ролика за час: 4 шага</li>
+          <li>Установка на Mac, Windows и сервер</li>
+          <li>Шпаргалка фраз для монтажа и правок</li>
+          <li>Свои фото и видео во вставках</li>
+          <li>12 стилей инфографики и 6 стилей субтитров</li>
+          <li>Свой стиль: цвета, логотип, звуки</li>
+          <li>Как снимать, чтобы монтаж вышел лучше</li>
+          <li>Пробные Reels: один ролик, несколько шансов</li>
+          <li>Ответы новичку и помощь</li>
+        </ul>
+      </div>
+    </div>
+    <div class="buy-early">
+      <div class="be-text"><div class="eyebrow">Готовы начать?</div><h3>Вся фабрика и гайд <span class="y">за $49 один раз</span></h3><p>12 стилей инфографики, 6 стилей субтитров, звук и гайд на 19 страниц. 14 дней на возврат.</p></div>
+      <div class="be-buy"><a class="btn buy" href="#price">Забрать пак за <span class="price">$49</span></a><a class="be-more" href="#features">сначала посмотреть, что он умеет ↓</a></div>
+    </div>
+  </div>
+</section>
+
 <!-- ВОЗМОЖНОСТИ: переписки первыми (хит), потом всё, что раньше делали в After Effects и других программах, потом «что внутри фабрики». Все примеры смонтированы паком на ролике «Монтаж» -->
 <section id="features" class="feat">
   <div class="wrap">
-    <div class="chapter" data-n="03" data-t="Возможности"><span class="ch-tc">00:00</span><span class="ch-clip"><b>03</b>Возможности</span><i class="ch-track"></i></div>
+    <div class="chapter" data-n="04" data-t="Возможности"><span class="ch-tc">00:00</span><span class="ch-clip"><b>04</b>Возможности</span><i class="ch-track"></i></div>
     <div class="eyebrow">Хит у блогеров</div>
     <h2>Переписки, как в <span class="y">настоящих мессенджерах</span></h2>
     <p class="lead" style="margin-top:14px">Telegram, WhatsApp, iMessage и ИИ-чат. Сообщения появляются ровно на ваших словах, собеседник «печатает…», стоят галочки прочтения. В After Effects такую сцену собирают часами, а помощник ставит её сам, когда в ролике речь о переписке.</p>
@@ -2029,7 +2086,7 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
 <!-- СТИЛИ: на телефоне и планшете слайдер страницами 2×2, начинается с Досье и Макос; ниже приём «пробные Reels» -->
 <section id="styles" class="alt">
   <div class="wrap">
-    <div class="chapter" data-n="04" data-t="Стили"><span class="ch-tc">00:00</span><span class="ch-clip"><b>04</b>Стили</span><i class="ch-track"></i></div>
+    <div class="chapter" data-n="05" data-t="Стили"><span class="ch-tc">00:00</span><span class="ch-clip"><b>05</b>Стили</span><i class="ch-track"></i></div>
     <h2>12 стилей <span class="y">инфографики</span></h2>
     <p class="lead" style="margin-top:14px">Помощник сам посоветует 2–3 стиля под ваш ролик. Можно собрать все сразу и выбрать лучший. И ещё 6 стилей субтитров: Классика, Стекло, Волна, Караоке, Тонкий, Макос.</p>
     <div class="styles rail st-rail">
@@ -2099,46 +2156,6 @@ html.hdr-on .scrub .track { background-color: #100F0D; }
   </div>
 </section>
 
-<!-- КАК ЭТО РАБОТАЕТ + ГАЙД -->
-<section id="how">
-  <div class="wrap">
-    <div class="chapter" data-n="05" data-t="Как это работает"><span class="ch-tc">00:00</span><span class="ch-clip"><b>05</b>Как это работает</span><i class="ch-track"></i></div>
-    <h2>Первый ролик <span class="y">уже сегодня</span></h2>
-    <div class="how">
-      <figure class="clip tilt-l">
-        <div class="scr"><img src="media/reel/styles3.webp" alt="Кадр из ролика: исходник в папку, одна фраза, ролик в трёх стилях" width="540" height="960" loading="lazy"><video data-src="media/reel/styles3.mp4" muted loop playsinline preload="none"></video></div>
-        <figcaption>исходник в папку, одна фраза, три стиля</figcaption>
-      </figure>
-      <div class="how-side">
-        <p class="lead">Программировать не нужно: кладёте видео в папку и пишете помощнику обычными словами. Он сам соберёт ролик в нескольких стилях, а гайд с картинками проведёт от установки до первого ролика.</p>
-        <div class="slab ten"><b class="x3d">10 роликов за 2,5 часа</b><span>Один минутный ролик в одном стиле собирается примерно за 15 минут на Mac с процессором M. Запустили десять, и через 2,5 часа они готовы, а вы всё это время свободны.</span></div>
-      </div>
-    </div>
-    <div class="guide-pack">
-      <div class="gp-book" aria-hidden="true">
-        <div class="gp-stack"></div>
-        <img class="gp-cover" src="media/guide2/cover.webp" alt="" width="600" height="820" loading="lazy">
-        <span class="gp-badge">PDF</span>
-      </div>
-      <div class="gp-text">
-        <div class="eyebrow">Внутри пака</div>
-        <h3>Гайд «Как начать»</h3>
-        <p class="gp-meta">PDF · 19 страниц с картинками</p>
-        <ul class="gp-toc">
-          <li>Путь до первого ролика за час: 4 шага</li>
-          <li>Установка на Mac, Windows и сервер</li>
-          <li>Шпаргалка фраз для монтажа и правок</li>
-          <li>Свои фото и видео во вставках</li>
-          <li>12 стилей инфографики и 6 стилей субтитров</li>
-          <li>Свой стиль: цвета, логотип, звуки</li>
-          <li>Как снимать, чтобы монтаж вышел лучше</li>
-          <li>Пробные Reels: один ролик, несколько шансов</li>
-          <li>Ответы новичку и помощь</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ОТЗЫВЫ: заполняются настоящими отзывами (REVIEWS) и скриншотами комментариев (PROOF_SHOTS) -->
 <section id="reviews" hidden>
@@ -2860,6 +2877,7 @@ let priceSeen = false;
 function dockUpdate() {
   const pr = priceSec.getBoundingClientRect();
   if (pr.top < innerHeight * .5) priceSeen = true;
+  const be = document.querySelector(".buy-early"); if (be && be.getBoundingClientRect().top < innerHeight * .5) priceSeen = true;   // первая кнопка с ценой уже была
   const nearPrice = pr.top < innerHeight && pr.bottom > 0, fin = finalSec.getBoundingClientRect();
   const gf = document.getElementById("gift").getBoundingClientRect(), nearGift = gf.top < innerHeight && gf.bottom > 0;  // в подарке своя кнопка «Скачать бесплатно»
   dock.classList.toggle("show", priceSeen && !hdr.classList.contains("show") && !nearPrice && !nearGift && !(fin.top < innerHeight && fin.bottom > 0) && !buyOnScreen());
@@ -3118,7 +3136,7 @@ addEventListener("scroll", onScroll, { passive: true }); addEventListener("resiz
     // A/B-тест таймера: группа уходит со всеми событиями визита, плюс одно событие ab_view для подсчёта людей в группах
     if (typeof AB_TIMER !== "undefined") { try { posthog.register({ ab_timer: AB_TIMER }); } catch (_) {} track("ab_view", { ab_timer: AB_TIMER }); }
     // воронка: каждый блок отмечается один раз за визит, когда его верх доходит до середины экрана
-    const STEPS = [["top", "Первый экран"], ["about", "Кто я"], ["story", "История"], ["factory", "Фабрика"], ["features", "Возможности"], ["bento", "Что внутри"], ["styles", "Стили"], ["trial", "Пробные Reels"], ["own", "Свой стиль"], ["how", "Как работает"], ["reviews", "Отзывы"], ["fit", "Для кого"], ["calc", "Калькулятор"], ["price", "Цена"], ["guarantee", "Гарантия"], ["gift", "Подарок"], ["faq", "Вопросы"], ["final", "Финал"]];
+    const STEPS = [["top", "Первый экран"], ["about", "Кто я"], ["story", "История"], ["factory", "Фабрика"], ["how", "Как работает"], ["features", "Возможности"], ["bento", "Что внутри"], ["styles", "Стили"], ["trial", "Пробные Reels"], ["own", "Свой стиль"], ["reviews", "Отзывы"], ["fit", "Для кого"], ["calc", "Калькулятор"], ["price", "Цена"], ["guarantee", "Гарантия"], ["gift", "Подарок"], ["faq", "Вопросы"], ["final", "Финал"]];
     const steps = STEPS.map(([id, name], i) => ({ id, name, step: i + 1, el: id === "final" ? document.querySelector(".final") : document.getElementById(id) })).filter((x) => x.el && !x.el.hidden);
     const seen = new Set();
     const io = new IntersectionObserver((es) => es.forEach((e) => {
@@ -3135,7 +3153,7 @@ addEventListener("scroll", onScroll, { passive: true }); addEventListener("resiz
       for (const m of marks) if (pct >= m && !done.has(m)) { done.add(m); track("scroll_depth", { pct: m }); }
     }, { passive: true });
     // клики, которые важны для продажи
-    const where = (el) => el.closest(".dock") ? "нижняя кнопка" : el.closest(".hdr") ? "шапка" : el.closest(".final") ? "финал" : el.closest("#price") ? "цена" : (() => { const sec = el.closest("section"); const st = sec && steps.find((x) => x.el === sec || x.el.contains(sec) || sec.contains(x.el)); return st ? st.name.toLowerCase() : "другое"; })();
+    const where = (el) => el.closest(".dock") ? "нижняя кнопка" : el.closest(".hdr") ? "шапка" : el.closest(".final") ? "финал" : el.closest("#price") ? "цена" : el.closest(".buy-early") ? "первая кнопка" : (() => { const sec = el.closest("section"); const st = sec && steps.find((x) => x.el === sec || x.el.contains(sec) || sec.contains(x.el)); return st ? st.name.toLowerCase() : "другое"; })();
     document.addEventListener("click", (e) => {
       const t = e.target.closest("a, button, summary"); if (!t) return;
       if (t.matches(".buy, .hdr-buy")) track("cta_click", { cta: "Забрать пак", where: where(t) });
@@ -3146,6 +3164,7 @@ addEventListener("scroll", onScroll, { passive: true }); addEventListener("resiz
       else if (t.id === "sndBtn") track("cta_click", { cta: "Звук из пака", where: "что внутри" });
       else if (t.closest(".fa-c")) track("fit_pick", { who: t.closest(".fa-c").querySelector("b").textContent, on: t.closest(".fa-c").getAttribute("aria-pressed") !== "true" });
       else if (t.id === "faqMore") track("cta_click", { cta: "Ещё вопросы", where: "вопросы" });
+      else if (t.closest(".be-more")) track("cta_click", { cta: "Сначала посмотреть", where: "первая кнопка" });
       else if (t.closest(".faq-ask")) track("cta_click", { cta: "Написать в Instagram", where: "вопросы" });
       else if (t.id === "totop") track("cta_click", { cta: "Наверх", where: current().name });
       else if (t.closest(".hdr-tl, .hdr-menu")) track("cta_click", { cta: "Глава из шапки", where: t.textContent.trim().replace(/^\d+\s*/, "") });
